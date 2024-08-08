@@ -1,0 +1,24 @@
+.d-flex.flex-wrap.align-items-center.py-0.border-bottom
+  .navbar.navbar-expand-md.navbar-light.me-auto
+    a.navbar-brand[href="/"]
+      = t('.home_link')
+
+  / ul.nav.nav-pills
+  /   - if user_signed_in?
+  /     li.nav-item
+  /       a.nav-link.disabled
+  /         = current_user.email
+  /     li.nav-item.me-2
+  /       = link_to t('posts.new.title'), new_post_path,
+  /               class: 'nav-link link-dark'
+  /     li.nav-item.me-2
+  /       = link_to t('.sign_out'), destroy_user_session_path,
+  /               data: { turbo_method: :delete },
+  /               class: 'nav-link link-dark'
+  /   - else
+  /     li.nav-item.me-2
+  /       = link_to t('.sign_in'), new_user_session_path,
+  /               class: 'nav-link link-dark'
+  /     li.nav-item.me-2
+  /       = link_to t('.register'), new_user_registration_path,
+  /               class: 'nav-link link-dark'

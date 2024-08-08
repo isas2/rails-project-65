@@ -1,0 +1,26 @@
+doctype html
+html.h-100
+  head
+    title = t('.title')
+    == csrf_meta_tags
+    == csp_meta_tag
+    meta name="keywords" content="template language"
+    meta name="author" content='author'
+    meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    = stylesheet_link_tag 'application', 'data-turbo-track': 'reload'
+    = javascript_importmap_tags
+    = javascript_include_tag 'application', 'data-turbo-track': 'reload',
+            defer: true
+
+  body.d-flex.flex-column.h-100
+    .container.mb-2
+      = render 'layouts/shared/nav'
+
+    .container.my-4
+      = render 'layouts/shared/flash'
+      == yield
+
+    footer.mt-auto
+      .container-xl
+        .row.py-2
+          = t('.hexlet_title', year: Time.current.year)
