@@ -16,8 +16,11 @@ gem 'stimulus-rails'
 gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[windows jruby]
 
+gem 'active_storage_validations'
 gem 'bootstrap', '~> 5.3.3'
 gem 'dotenv-rails'
+gem 'file_validators'
+gem 'image_processing', '~> 1.2'
 gem 'importmap-rails', '~> 2.0'
 gem 'omniauth-github'
 gem 'omniauth-rails_csrf_protection'
@@ -28,6 +31,7 @@ gem 'slim-rails'
 
 group :development, :test do
   gem 'debug', platforms: %i[mri windows]
+  gem 'faker'
   gem 'i18n-debug'
   gem 'rubocop'
   gem 'rubocop-capybara'
@@ -42,7 +46,6 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'faker'
   gem 'minitest-power_assert'
   gem 'selenium-webdriver'
 end

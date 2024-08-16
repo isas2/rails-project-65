@@ -1,0 +1,5 @@
+one:
+  name: <%= Faker::Restaurant.unique.type %>
+
+two:
+  name: <%= Faker::Restaurant.unique.type %>

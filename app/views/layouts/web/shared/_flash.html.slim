@@ -1,0 +1,5 @@
+- if flash.any?
+  .container.mb-2
+  - flash.each do |type, message|
+    div class="container alert #{get_flash_class_for(type)}" role="alert"
+      = message
