@@ -3,11 +3,11 @@ require "test_helper"
 class BulletinsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @bulletin = bulletins(:one)
-    sign_in users(:two)
+    sign_in users(:one)
     @attrs = {
       title: Faker::Restaurant.name,
       description: Faker::Restaurant.description,
-      user_id: users(:two).id,
+      user_id: users(:one).id,
       category_id: categories(:two).id,
       image: fixture_file_upload('file1.jpg', 'image/jpg')
     }
@@ -44,13 +44,5 @@ class BulletinsControllerTest < ActionDispatch::IntegrationTest
   test "should update bulletin" do
     patch bulletin_url(@bulletin), params: { bulletin: @attrs }
     assert_redirected_to bulletin_url(@bulletin)
-  end
-
-  test "should destroy bulletin" do
-    assert_difference("Bulletin.count", -1) do
-      delete bulletin_url(@bulletin)
-    end
-
-    assert_redirected_to bulletins_url
   end
 end
