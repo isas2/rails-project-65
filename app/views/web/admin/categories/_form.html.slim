@@ -1,4 +1,4 @@
-= simple_form_for(@category) do |f|
+= simple_form_for([:admin, @category]) do |f|
   = f.error_notification
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
@@ -6,4 +6,4 @@
     = f.input :name
 
   .form-actions
-    = f.button :submit
+    = f.button :submit, class: 'mt-4 btn btn-primary'

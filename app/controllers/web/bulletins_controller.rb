@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Web
-  class BulletinsController < Web::ApplicationController
-    before_action :set_bulletin, only: %i[ show edit update destroy ]
+  class BulletinsController < ApplicationController
+    before_action :set_bulletin, only: %i[show edit update]
     def index
       @bulletins = Bulletin.includes(:user, :category).order(created_at: :desc)
     end
@@ -10,16 +10,14 @@ module Web
     def show; end
 
     def new
-      return unless user_signed_in?
-
+      authorize Bulletin
       @bulletin = current_user.bulletins.build
     end
 
     def edit; end
 
     def create
-      return unless user_signed_in?
-
+      authorize Bulletin
       @bulletin = current_user.bulletins.build(bulletin_params)
 
       respond_to do |format|
@@ -45,19 +43,11 @@ module Web
       end
     end
 
-    def destroy
-      @bulletin.destroy!
-
-      respond_to do |format|
-        format.html { redirect_to bulletins_url, notice: "Bulletin was successfully destroyed." }
-        format.json { head :no_content }
-      end
-    end
-
     private
 
     def set_bulletin
       @bulletin = Bulletin.find(params[:id])
+      authorize @bulletin
     end
 
     def bulletin_params

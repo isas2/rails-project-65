@@ -9,4 +9,13 @@ module ApplicationHelper
       notice: 'alert-info'
     }[type.to_sym]
   end
+
+  def check_active(controller, moderated: false)
+    check = if moderated
+              params[:action] == 'index_moderated'
+            else
+              params[:action] != 'index_moderated' && params[:controller].include?(controller)
+            end
+    check ? ' active' : ''
+  end
 end

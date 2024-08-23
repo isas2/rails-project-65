@@ -3,6 +3,7 @@ require "test_helper"
 class BulletinsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @bulletin = bulletins(:one)
+    sign_in users(:two)
     @attrs = {
       title: Faker::Restaurant.name,
       description: Faker::Restaurant.description,

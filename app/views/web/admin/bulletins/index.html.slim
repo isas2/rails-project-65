@@ -1,0 +1,21 @@
+h1.h2.mb-4
+  = t('.bulletins.all')
+
+.row.mt-2
+  table.table.table-borderless
+    thead
+      tr
+        th = t('.title')
+        th = t('.created')
+        th = t('.action')
+
+    tbody
+      - @bulletins.each do |bulletin|
+        tr
+          td = bulletin.title
+          td = distance_of_time_in_words(Time.current, bulletin.created_at)
+          td
+            = link_to t('.edit'), admin_root_path, class: 'me-1'
+            = link_to t('.destroy'), admin_root_path,
+                    data: { turbo_method: :delete, turbo_confirm: t('.destroy_confirmation') },
+                    class: 'text-danger me-1'

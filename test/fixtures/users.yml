@@ -5,3 +5,8 @@ one:
 two:
   name: MyString 2
   email: MyString2@ex.com
+
+admin:
+  name: SuperAdmin
+  email: admin@ex.com
+  admin: true
