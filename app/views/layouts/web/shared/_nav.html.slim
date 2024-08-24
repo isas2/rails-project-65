@@ -9,6 +9,9 @@
                   class: 'nav-link text-dark'
         - if user_signed_in?
           li.nav-item.me-2
+            = link_to t('.profile'), profile_path,
+                    class: 'nav-link text-dark'
+          li.nav-item.me-2
             = link_to t('.bulletins.new'), new_bulletin_path,
                     class: 'nav-link text-dark'
 

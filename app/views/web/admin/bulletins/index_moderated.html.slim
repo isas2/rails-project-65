@@ -15,7 +15,12 @@ h1.h2.mb-4
           td = bulletin.title
           td = distance_of_time_in_words(Time.current, bulletin.created_at)
           td
-            = link_to t('.edit'), admin_root_path, class: 'me-1'
-            = link_to t('.destroy'), admin_root_path,
-                    data: { turbo_method: :delete, turbo_confirm: t('.destroy_confirmation') },
-                    class: 'text-danger me-1'
+            = link_to t('.publish'), publish_admin_bulletin_path(bulletin),
+                    data: { turbo_method: :patch },
+                    class: 'me-2'
+            = link_to t('.reject'), reject_admin_bulletin_path(bulletin),
+                    data: { turbo_method: :patch },
+                    class: 'me-2'
+            = link_to t('.archive'), archive_admin_bulletin_path(bulletin, back_to: @back_to_page),
+                    data: { turbo_method: :patch, confirm: t('.archive_confirmation') },
+                    class: 'text-danger'

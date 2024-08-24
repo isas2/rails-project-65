@@ -16,6 +16,7 @@ gem 'stimulus-rails'
 gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[windows jruby]
 
+gem 'aasm'
 gem 'active_storage_validations'
 gem 'bootstrap', '~> 5.3.3'
 gem 'dotenv-rails'

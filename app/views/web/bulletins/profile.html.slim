@@ -1,11 +1,13 @@
-h1.h2.mb-4
-  = t('.bulletins.all')
+h2
+  = t('.bulletins.my')
+hr
 
 .row.mt-2
   table.table.table-borderless
     thead
       tr
         th = t('.title')
+        th = t('.state')
         th = t('.created')
         th = t('.action')
 
@@ -13,10 +15,16 @@ h1.h2.mb-4
       - @bulletins.each do |bulletin|
         tr
           td = bulletin.title
+          td = bulletin.state
           td = distance_of_time_in_words(Time.current, bulletin.created_at)
           td
             = link_to t('.show'), bulletin_path(bulletin), class: 'me-2'
+            = link_to t('.edit'), edit_bulletin_path(bulletin), class: 'me-2'
+            - if bulletin.draft?
+              = link_to t('.to_moderate'), to_moderate_bulletin_path(bulletin),
+                      data: { turbo_method: :patch },
+                      class: 'me-2'
             - unless bulletin.archived?
-              = link_to t('.archive'), archive_admin_bulletin_path(bulletin, back_to: @back_to_page),
+              = link_to t('.archive'), archive_bulletin_path(bulletin),
                       data: { turbo_method: :patch, confirm: t('.archive_confirmation')},
                       class: 'text-danger'

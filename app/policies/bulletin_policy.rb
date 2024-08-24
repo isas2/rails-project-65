@@ -13,7 +13,7 @@ class BulletinPolicy
   end
 
   def show?
-    true
+    bulletin.published? || bulletin.user == user || user&.admin?
   end
 
   def create?
@@ -29,6 +29,14 @@ class BulletinPolicy
   end
 
   def edit?
+    update?
+  end
+
+  def to_moderate?
+    update?
+  end
+
+  def archive?
     update?
   end
 end

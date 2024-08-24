@@ -2,9 +2,23 @@
 
 module Web
   class BulletinsController < ApplicationController
-    before_action :set_bulletin, only: %i[show edit update]
+    before_action :set_bulletin, only: %i[archive show edit to_moderate update]
     def index
-      @bulletins = Bulletin.includes(:user, :category).order(created_at: :desc)
+      @bulletins = Bulletin.published.includes(:user, :category).order(created_at: :desc)
+    end
+
+    def profile
+      @bulletins = current_user.bulletins.includes(:user, :category).order(created_at: :desc)
+    end
+
+    def to_moderate
+      @bulletin.to_moderate!
+      redirect_to profile_path, notice: "Bulletin was successfully sent to moderate."
+    end
+
+    def archive
+      @bulletin.archive!
+      redirect_to profile_path, notice: "Bulletin was successfully sent to archive."
     end
 
     def show; end
@@ -20,26 +34,18 @@ module Web
       authorize Bulletin
       @bulletin = current_user.bulletins.build(bulletin_params)
 
-      respond_to do |format|
-        if @bulletin.save
-          format.html { redirect_to bulletin_url(@bulletin), notice: "Bulletin was successfully created." }
-          format.json { render :show, status: :created, location: @bulletin }
-        else
-          format.html { render :new, status: :unprocessable_entity }
-          format.json { render json: @bulletin.errors, status: :unprocessable_entity }
-        end
+      if @bulletin.save
+        redirect_to bulletin_url(@bulletin), notice: "Bulletin was successfully created."
+      else
+        render :new, status: :unprocessable_entity
       end
     end
 
     def update
-      respond_to do |format|
-        if @bulletin.update(bulletin_params)
-          format.html { redirect_to bulletin_url(@bulletin), notice: "Bulletin was successfully updated." }
-          format.json { render :show, status: :ok, location: @bulletin }
-        else
-          format.html { render :edit, status: :unprocessable_entity }
-          format.json { render json: @bulletin.errors, status: :unprocessable_entity }
-        end
+      if @bulletin.update(bulletin_params)
+        redirect_to bulletin_url(@bulletin), notice: "Bulletin was successfully updated."
+      else
+        render :edit, status: :unprocessable_entity
       end
     end
 
@@ -51,7 +57,7 @@ module Web
     end
 
     def bulletin_params
-      params.require(:bulletin).permit(:title, :description, :user_id, :category_id, :image)
+      params.require(:bulletin).permit(:title, :description, :category_id, :image)
     end
   end
 end

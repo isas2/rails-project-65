@@ -6,12 +6,13 @@ Rails.application.routes.draw do
     namespace :admin do
       root to: 'bulletins#index_moderated'
       resources :categories
-      resources :bulletins, only: [:index]
-      # resources :bulletins, only: [:index] do
-      #   collection do
-      #     get :index_moderated
-      #   end
-      # end
+      resources :bulletins, only: [:index] do
+        member do
+          patch :archive
+          patch :publish
+          patch :reject
+        end
+      end
     end
 
     root to: 'bulletins#index'
@@ -19,6 +20,12 @@ Rails.application.routes.draw do
     post 'auth/:provider', to: 'auth#request', as: :auth_request
     get 'auth/:provider/callback', to: 'auth#callback', as: :callback_auth
     delete '/logout', to: 'auth#delete'
-    resources :bulletins, only: %i[create edit index new show update]
+    get '/profile', to: 'bulletins#profile'
+    resources :bulletins, only: %i[create edit index new show update] do
+      member do
+        patch :archive
+        patch :to_moderate
+      end
+    end
   end
 end
