@@ -9,12 +9,6 @@ env:
 start:
 	bin/dev
 
-start-prod:
-	RAILS_ENV=production bin/rails s -d
-
-stop:
-    kill $(lsof -i :3000 -t)
-
 console:
 	bin/rails console
 
