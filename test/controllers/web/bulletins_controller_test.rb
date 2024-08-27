@@ -10,7 +10,7 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest
       title: Faker::Restaurant.name,
       description: Faker::Restaurant.description.truncate(1000),
       category_id: categories(:two).id,
-      image: fixture_file_upload('file1.jpg', 'image/jpg')
+      image: fixture_file_upload('file2.png', 'image/png')
     }
   end
 
