@@ -55,3 +55,5 @@ en:
         success: Bulletin was successfully sent to moderate!
       update:
         success: Bulletin was successfully updated!
+  pundit:
+    not_authorized: You are not authorized to perform this action

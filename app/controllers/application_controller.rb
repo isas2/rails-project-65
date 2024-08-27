@@ -6,9 +6,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   helper_method :user_signed_in?
 
-  # def requeres_authentication
-  #   redirect_to root_path, alert: 'Requires authentication' unless user_signed_in?
-  # end
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id].present?
@@ -16,5 +14,11 @@ class ApplicationController < ActionController::Base
 
   def user_signed_in?
     !!current_user
+  end
+
+  private
+
+  def user_not_authorized
+    redirect_to (request.referer || root_path), alert: t('pundit.not_authorized')
   end
 end
