@@ -1,9 +1,4 @@
 file1_image:
-  name: file1
-  record: one (User)
+  name: image
+  record: one (Bulletin)
   blob: file1_image_blob
-
-file2_image:
-  name: file2
-  record: two (User)
-  blob: file2_image_blob

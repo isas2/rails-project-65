@@ -13,7 +13,7 @@ html.h-100
             defer: true
 
   body.d-flex.flex-column.h-100
-    .container.mb-2
+    .container.mb-2.mt-2
       = render 'layouts/web/shared/nav'
 
     = render 'layouts/web/shared/flash'
@@ -29,4 +29,4 @@ html.h-100
     footer.mt-auto
       .container-xl
         .row.py-2
-          = t('.hexlet_title', year: Time.current.year)
+          = t('layouts.hexlet_title', year: Time.current.year)

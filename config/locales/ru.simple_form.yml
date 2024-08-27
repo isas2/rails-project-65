@@ -1,0 +1,22 @@
+ru:
+  simple_form:
+    hints:
+      q:
+        category_id_eq: Выбрать категорию
+        state_eq: Искать по состоянию объявления
+        title_cont: Искать по названию объявления
+    placeholders:
+      q:
+        category_id_eq: ''
+        state_eq: ''
+        title_cont: ''
+      bulletin:
+        category: Выберите категорию
+        description: Введите тело объявления
+        image: Выберите изображение
+        title: Введите заголовок
+        state: Состояние
+      category:
+        name: Введите название категории
+    required:
+      text: Поле обязательно для заполнения

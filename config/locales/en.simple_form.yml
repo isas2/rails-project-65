@@ -1,0 +1,22 @@
+en:
+  simple_form:
+    hints:
+      q:
+        category_id_eq: Select category
+        state_eq: Search by current bulletin state
+        title_cont: Search by bulletin title
+    placeholders:
+      q:
+        category_id_eq: ''
+        state_eq: ''
+        title_cont: ''
+      bulletin:
+        category: Select bulletin category
+        description: Input bulletin body
+        image: Select image for bulletin
+        title: Input bulletin title
+        state: State
+      category:
+        name: Enter category name
+    required:
+      text: Required

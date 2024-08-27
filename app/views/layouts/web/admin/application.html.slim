@@ -1,7 +1,7 @@
 doctype html
 html.h-100
   head
-    title = t('.title')
+    title = t('layouts.web.shared.nav.administration')
     == csrf_meta_tags
     == csp_meta_tag
     meta name="keywords" content="template language"
@@ -13,7 +13,7 @@ html.h-100
             defer: true
 
   body.d-flex.flex-column.h-100
-    .container.mb-2
+    .container.mb-2.mt-2
       = render 'layouts/web/shared/nav'
 
     = render 'layouts/web/shared/flash'
@@ -23,21 +23,18 @@ html.h-100
         .col-md-3
           ul.nav.flex-column.nav-pills
             li.nav-item
-              = link_to t('.bulletins.moderated'), admin_root_path,
-                      class: 'nav-link  link-dark' + check_active('bulletins', moderated: true)
+              = link_to t('.under_moderation'), admin_root_path,
+                      class: "nav-link  link-dark #{active_moderation}"
             li.nav-item
-              = link_to t('.bulletins.all'), admin_bulletins_path,
-                      class: 'nav-link  link-dark' + check_active('bulletins')
+              = link_to t('.all_bulletins'), admin_bulletins_path,
+                      class: "nav-link  link-dark #{active_bulletins}"
             li.nav-item
               = link_to t('.categories'), admin_categories_path,
-                      class: 'nav-link  link-dark' + check_active('categories')
-
+                      class: "nav-link  link-dark #{active_categories}"
         .col-md-9
           == yield
 
     footer.mt-auto
       .container-xl
         .row.py-2
-          = t('.hexlet_title', year: Time.current.year)
-
-
+          = t('layouts.hexlet_title', year: Time.current.year)

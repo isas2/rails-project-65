@@ -2,6 +2,8 @@ setup:
 	bin/setup
 	bin/rails db:seed
 	yarn
+
+env:
 	cp .env.example .env
 
 start:
@@ -13,6 +15,9 @@ console:
 test:
 	yarn run build
 	yarn run build:css
+	NODE_ENV=test bin/rails test
+
+test-fast:
 	NODE_ENV=test bin/rails test
 
 lint:

@@ -2,26 +2,41 @@
 
 require 'test_helper'
 
-class BulletinsControllerTest < ActionDispatch::IntegrationTest
+class Web::Admin::BulletinsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @bulletin = bulletins(:one)
     sign_in users(:admin)
-    @attrs = {
-      title: Faker::Restaurant.name,
-      description: Faker::Restaurant.description,
-      user_id: users(:two).id,
-      category_id: categories(:two).id,
-      image: fixture_file_upload('file1.jpg', 'image/jpg')
-    }
+    @bulletin = bulletins(:one)
   end
 
-  # test "should get index" do
-  #   get bulletins_url
-  #   assert_response :success
-  # end
-  #
-  # test "should update bulletin" do
-  #   patch bulletin_url(@bulletin), params: { bulletin: @attrs }
-  #   assert_redirected_to bulletin_url(@bulletin)
-  # end
+  test 'should get admin index' do
+    get admin_bulletins_url
+    assert_response :success
+  end
+
+  test 'should get admin moderated' do
+    get admin_root_path
+    assert_response :success
+  end
+
+  test 'should admin archived bulletin' do
+    patch archive_admin_bulletin_path(@bulletin)
+    @bulletin.reload
+    assert_have_state @bulletin, :archived, on: :state
+  end
+
+  test 'should admin rejected bulletin' do
+    @bulletin.to_moderate!
+
+    patch reject_admin_bulletin_path(@bulletin)
+    @bulletin.reload
+    assert_have_state @bulletin, :rejected, on: :state
+  end
+
+  test 'should admin published bulletin' do
+    @bulletin.to_moderate!
+
+    patch publish_admin_bulletin_path(@bulletin)
+    @bulletin.reload
+    assert_have_state @bulletin, :published, on: :state
+  end
 end

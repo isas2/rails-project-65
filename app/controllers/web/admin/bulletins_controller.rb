@@ -7,28 +7,31 @@ module Web
       before_action :set_bulletin, only: %i[archive reject publish]
 
       def index
-        @bulletins = Bulletin.includes(:user, :category).order(created_at: :desc)
+        @search = Bulletin.ransack(params[:q])
+        @bulletins = @search.result.page(params[:page]).per(20)
+                            .includes(:user, :category).order(created_at: :desc)
         @back_to_page = admin_bulletins_path
       end
 
       def index_moderated
-        @bulletins = Bulletin.under_moderation.includes(:user, :category).order(created_at: :desc)
+        @bulletins = Bulletin.under_moderation.page(params[:page]).per(20)
+                             .includes(:user, :category).order(created_at: :desc)
         @back_to_page = admin_root_path
       end
 
       def archive
         @bulletin.archive!
-        redirect_to params[:back_to] || admin_root_path, notice: "Bulletin was successfully sent to archive."
+        redirect_to params[:back_to] || admin_root_path, notice: t('.success')
       end
 
       def reject
         @bulletin.reject!
-        redirect_to admin_root_path, notice: "Bulletin was successfully rejected."
+        redirect_to admin_root_path, notice: t('.success')
       end
 
       def publish
         @bulletin.publish!
-        redirect_to admin_root_path, notice: "Bulletin was successfully published."
+        redirect_to admin_root_path, notice: t('.success')
       end
 
       private

@@ -1,11 +1,5 @@
 one:
   title: <%= Faker::Restaurant.name %>
-  description: <%= Faker::Restaurant.description %>
+  description: <%= Faker::Restaurant.description.truncate(1000) %>
   user: one
   category: one
-
-two:
-  title: <%= Faker::Restaurant.name %>
-  description: <%= Faker::Restaurant.description %>
-  user: two
-  category: two

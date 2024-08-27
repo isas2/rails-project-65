@@ -15,7 +15,11 @@ class Bulletin < ApplicationRecord
             file_size: { less_than: 5.megabytes },
             file_content_type: { allow: %w[image/jpg image/jpeg image/png] }
 
-  aasm column: 'state' do
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[category_id state title]
+  end
+
+  aasm :state, column: 'state' do
     state :draft, initial: true
     state :under_moderation
     state :published
@@ -35,7 +39,7 @@ class Bulletin < ApplicationRecord
     end
 
     event :archive do
-      transitions from: %i[draft under_moderation reject], to: :archived
+      transitions from: %i[draft under_moderation rejected published], to: :archived
     end
   end
 end

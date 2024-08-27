@@ -1,22 +1,39 @@
 h1.h2.mb-4
-  = t('.bulletins.all')
+  = t('web.bulletins.index.title')
 
 .row.mt-2
+  .p-3.bg-light
+    = search_form_for @search, url: admin_bulletins_path do |f|
+      .row.my-2
+        .col-5
+          = f.input :title_cont, label: false
+        .col-4
+          = f.input :state_eq, as: :select,
+                  collection: Bulletin.aasm(:state).states_for_select, label: false
+        .col-3
+          = f.submit t('search.go'), class: 'btn btn-primary me-2'
+          = link_to t('search.reset'), url_for, class: 'btn btn-outline-primary'
+
   table.table.table-borderless
     thead
       tr
-        th = t('.title')
-        th = t('.created')
-        th = t('.action')
+        th = t('activerecord.attributes.bulletin.title')
+        th = t('activerecord.attributes.bulletin.state')
+        th = t('activerecord.attributes.bulletin.created_at')
+        th = t('actions.title')
 
     tbody
       - @bulletins.each do |bulletin|
         tr
-          td = bulletin.title
+          td = link_to bulletin_path(bulletin)
+            = bulletin.title
+          td = bulletin.aasm(:state).human_state
           td = distance_of_time_in_words(Time.current, bulletin.created_at)
           td
-            = link_to t('.show'), bulletin_path(bulletin), class: 'me-2'
+            = link_to t('actions.show'), bulletin_path(bulletin), class: 'me-2'
             - unless bulletin.archived?
-              = link_to t('.archive'), archive_admin_bulletin_path(bulletin, back_to: @back_to_page),
-                      data: { turbo_method: :patch, confirm: t('.archive_confirmation')},
+              = link_to t('actions.archive'), archive_admin_bulletin_path(bulletin, back_to: @back_to_page),
+                      data: { turbo_method: :patch, confirm: t('actions.archive_confirmation') },
                       class: 'text-danger'
+
+  = paginate @bulletins

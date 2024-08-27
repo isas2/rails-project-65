@@ -1,5 +1,19 @@
-h2 Bulletins
-hr
+.mb-4
+  h2
+    = t('.title')
+  hr
+
+.p-3.bg-light
+  = search_form_for @search do |f|
+    .row.my-2
+      .col-5
+        = f.input :title_cont, label: false
+      .col-4
+        = f.input :category_id_eq, as: :select,
+                collection: Category.all, label: false
+      .col-3
+        = f.submit t('search.go'), class: 'btn btn-primary me-2'
+        = link_to t('search.reset'), url_for, class: 'btn btn-outline-primary'
 
 .row.mt-2
   - @bulletins.each do |bulletin|
@@ -15,3 +29,5 @@ hr
               = bulletin.title
           h6.card-subtitle.mb-2.text-muted
             = distance_of_time_in_words(Time.current, bulletin.created_at)
+
+  = paginate @bulletins

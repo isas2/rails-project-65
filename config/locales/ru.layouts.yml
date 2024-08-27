@@ -1,0 +1,18 @@
+ru:
+  layouts:
+    hexlet_title: © Хекслет, %{year}
+    web:
+      admin:
+        application:
+          all_bulletins: Все объявления
+          categories: Категории
+          under_moderation: Объявления на модерации
+      application:
+        title: Доска объявлений
+      shared:
+        nav:
+          administration: Админка
+          home_link: Доска объявлений
+          main: Главная
+          sign_in: Войти
+          sign_out: Выход

@@ -1,0 +1,57 @@
+en:
+  actions:
+    add: Add
+    archive: Archive
+    archive_confirmation: Confirm archive
+    edit: Edit
+    delete: Delete
+    delete_confirmation: Confirm delete
+    publish: Publish
+    reject: Reject
+    show: Show
+    title: Actions
+    to_moderate: To moderate
+  search:
+    reset: Reset
+    go: Search
+  web:
+    admin:
+      bulletins:
+        archive:
+          success: Bulletin was successfully sent to archive!
+        reject:
+          success: Bulletin was successfully rejected!
+        publish:
+          success: Bulletin was successfully published!
+      categories:
+        create:
+          success: Category was successfully created!
+        destroy:
+          success: Category was successfully destroyed!
+          error: This category cannot be destroyed!
+        index:
+          categories: Categories
+          edit: Edit category
+          new: New category
+        update:
+          success: Category was successfully updated!
+    bulletins:
+      archive:
+        success: Bulletin was successfully sent to the archive!
+      create:
+        success: Bulletin was successfully created!
+      edit:
+        title: Edit bulletin
+      index:
+        title: Bulletins
+      moderation:
+        title: Bulletins on moderation
+      new:
+        title: New bulletin
+      profile:
+        my: My bulletins
+        new: New bulletin
+      to_moderate:
+        success: Bulletin was successfully sent to moderate!
+      update:
+        success: Bulletin was successfully updated!

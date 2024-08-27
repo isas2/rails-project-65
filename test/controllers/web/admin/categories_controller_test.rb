@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class CategoriesControllerTest < ActionDispatch::IntegrationTest
+class Web::Admin::CategoriesControllerTest < ActionDispatch::IntegrationTest
   setup do
     sign_in users(:admin)
     @category = categories(:one)
@@ -24,7 +24,7 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
       post admin_categories_url, params: { category: @attrs }
     end
 
-    assert_redirected_to admin_categories_url
+    assert_not_nil Category.find_by(@attrs)
   end
 
   test 'should get edit' do
@@ -33,15 +33,16 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should update category' do
-    patch admin_category_url(@category), params: { category: { name: @category.name } }
-    assert_redirected_to admin_categories_url
+    patch admin_category_url(@category), params: { category: @attrs }
+    assert_not_equal Category.find(@category.id).name, @category.name
   end
 
   test 'should destroy category' do
+    category = categories(:two)
     assert_difference('Category.count', -1) do
-      delete admin_category_url(@category)
+      delete admin_category_url(category)
     end
 
-    assert_redirected_to admin_categories_url
+    assert_nil Category.find_by(id: category.id)
   end
 end

@@ -1,0 +1,35 @@
+ru:
+  activerecord:
+    events:
+      bulletin:
+        add: Добавить
+        archive: В архив
+        edit: Редактировать
+        publish: Опубликовать
+        reject: Отменить
+        show: Показать
+        to_moderate: Отправить на модерацию
+    models:
+      bulletin:
+        one: объявление
+        other: объявления
+      category:
+        one: категорию
+        other: категории
+      user: Пользователь
+    attributes:
+      category:
+        id: ID
+        name: Название
+      bulletin:
+        category: Категория
+        created_at: Дата создания
+        description: Описание
+        image: Изображение
+        title: Заголовок
+        state: Состояние
+        state/archived: В архиве
+        state/draft: Черновик
+        state/published: Опубликовано
+        state/rejected: Возвращено
+        state/under_moderation: На модерации

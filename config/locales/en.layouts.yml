@@ -1,0 +1,18 @@
+en:
+  layouts:
+    hexlet_title: © Hexlet, %{year}
+    web:
+      admin:
+        application:
+          all_bulletins: All bulletins
+          categories: Categories
+          under_moderation: Under moderation
+      application:
+        title: Bulletin board
+      shared:
+        nav:
+          administration: Administration
+          home_link: Bulletin board
+          main: Main
+          sign_in: Sign in
+          sign_out: Sign out

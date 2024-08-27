@@ -4,21 +4,25 @@ module Web
   class BulletinsController < ApplicationController
     before_action :set_bulletin, only: %i[archive show edit to_moderate update]
     def index
-      @bulletins = Bulletin.published.includes(:user, :category).order(created_at: :desc)
+      @search = Bulletin.ransack(params[:q])
+      @bulletins = @search.result.published.page(params[:page]).per(20)
+                          .includes(:user, :category).order(created_at: :desc)
     end
 
     def profile
-      @bulletins = current_user.bulletins.includes(:user, :category).order(created_at: :desc)
+      @search = current_user.bulletins.ransack(params[:q])
+      @bulletins = @search.result.page(params[:page]).per(20)
+                          .includes(:user, :category).order(created_at: :desc)
     end
 
     def to_moderate
       @bulletin.to_moderate!
-      redirect_to profile_path, notice: "Bulletin was successfully sent to moderate."
+      redirect_to profile_path, notice: t('.success')
     end
 
     def archive
       @bulletin.archive!
-      redirect_to profile_path, notice: "Bulletin was successfully sent to archive."
+      redirect_to profile_path, notice: t('.success')
     end
 
     def show; end
@@ -35,7 +39,7 @@ module Web
       @bulletin = current_user.bulletins.build(bulletin_params)
 
       if @bulletin.save
-        redirect_to bulletin_url(@bulletin), notice: "Bulletin was successfully created."
+        redirect_to bulletin_url(@bulletin), notice: t('.success')
       else
         render :new, status: :unprocessable_entity
       end
@@ -43,7 +47,7 @@ module Web
 
     def update
       if @bulletin.update(bulletin_params)
-        redirect_to bulletin_url(@bulletin), notice: "Bulletin was successfully updated."
+        redirect_to bulletin_url(@bulletin), notice: t('.success')
       else
         render :edit, status: :unprocessable_entity
       end

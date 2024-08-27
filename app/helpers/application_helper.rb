@@ -10,12 +10,16 @@ module ApplicationHelper
     }[type.to_sym]
   end
 
-  def check_active(controller, moderated: false)
-    check = if moderated
-              params[:action] == 'index_moderated'
-            else
-              params[:action] != 'index_moderated' && params[:controller].include?(controller)
-            end
+  def active_moderation
+    params[:action] == 'index_moderated' ? ' active' : ''
+  end
+
+  def active_bulletins
+    check = params[:action] != 'index_moderated' && params[:controller].include?('bulletins')
     check ? ' active' : ''
+  end
+
+  def active_categories
+    params[:controller].include?('categories') ? ' active' : ''
   end
 end
