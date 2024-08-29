@@ -30,6 +30,7 @@ gem 'pundit'
 gem 'rails-i18n'
 gem 'rails-ujs'
 gem 'ransack'
+gem 'sass-rails'
 gem 'simple_form'
 gem 'slim-rails'
 

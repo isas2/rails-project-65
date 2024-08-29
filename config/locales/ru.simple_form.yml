@@ -1,5 +1,7 @@
 ru:
   simple_form:
+    error_notification:
+      default_message: 'Пожалуйста, ознакомьтесь с проблемами ниже:'
     hints:
       q:
         category_id_eq: Выбрать категорию

@@ -20,6 +20,10 @@ class BulletinPolicy
     user
   end
 
+  def profile?
+    user
+  end
+
   def new?
     create?
   end

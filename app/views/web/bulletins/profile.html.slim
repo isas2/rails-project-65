@@ -5,7 +5,7 @@
 
 = link_to t('.new'), new_bulletin_path
 
-.p-3.bg-light
+.p-3.bg-light.mt-2
   = search_form_for @search, url: profile_path do |f|
     .row.my-2
       .col-5
@@ -41,7 +41,7 @@
                       class: 'me-2'
             - unless bulletin.archived?
               = link_to t('actions.archive'), archive_bulletin_path(bulletin),
-                      data: { turbo_method: :patch, confirm: t('actions.archive_confirmation') },
+                      data: { turbo_method: :patch, turbo_confirm: t('actions.archive_confirmation') },
                       class: 'text-danger'
 
   = paginate @bulletins

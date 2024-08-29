@@ -33,7 +33,7 @@ h1.h2.mb-4
             = link_to t('actions.show'), bulletin_path(bulletin), class: 'me-2'
             - unless bulletin.archived?
               = link_to t('actions.archive'), archive_admin_bulletin_path(bulletin, back_to: @back_to_page),
-                      data: { turbo_method: :patch, confirm: t('actions.archive_confirmation') },
+                      data: { turbo_method: :patch, turbo_confirm: t('actions.archive_confirmation') },
                       class: 'text-danger'
 
   = paginate @bulletins

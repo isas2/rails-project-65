@@ -1,5 +1,7 @@
 en:
   simple_form:
+    error_notification:
+      default_message: 'Please review the problems below:'
     hints:
       q:
         category_id_eq: Select category

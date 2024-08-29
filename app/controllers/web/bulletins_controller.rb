@@ -10,6 +10,7 @@ module Web
     end
 
     def profile
+      authorize Bulletin
       @search = current_user.bulletins.ransack(params[:q])
       @bulletins = @search.result.page(params[:page]).per(20)
                           .includes(:user, :category).order(created_at: :desc)
