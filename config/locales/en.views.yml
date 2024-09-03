@@ -19,10 +19,13 @@ en:
       bulletins:
         archive:
           success: Bulletin was successfully sent to archive!
+          error: The bulletin was not archived!
         reject:
           success: Bulletin was successfully rejected!
+          error: The bulletin was not rejected!
         publish:
           success: Bulletin was successfully published!
+          error: The bulletin was not published!
       categories:
         create:
           success: Category was successfully created!
@@ -38,6 +41,7 @@ en:
     bulletins:
       archive:
         success: Bulletin was successfully sent to the archive!
+        error: The bulletin was not archived!
       create:
         success: Bulletin was successfully created!
       edit:
@@ -53,6 +57,7 @@ en:
         new: New bulletin
       to_moderate:
         success: Bulletin was successfully sent to moderate!
+        error: The bulletin has not been sent for moderation!
       update:
         success: Bulletin was successfully updated!
   pundit:

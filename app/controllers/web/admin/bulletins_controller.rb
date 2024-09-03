@@ -9,29 +9,41 @@ module Web
       def index
         @search = Bulletin.ransack(params[:q])
         @bulletins = @search.result.page(params[:page]).per(20)
-                            .includes(:user, :category).order(created_at: :desc)
+                            .order(created_at: :desc)
         @back_to_page = admin_bulletins_path
       end
 
       def index_moderated
         @bulletins = Bulletin.under_moderation.page(params[:page]).per(20)
-                             .includes(:user, :category).order(created_at: :desc)
+                             .order(created_at: :desc)
         @back_to_page = admin_root_path
       end
 
       def archive
-        @bulletin.archive!
-        redirect_to params[:back_to] || admin_root_path, notice: t('.success')
+        if @bulletin.may_archive?
+          @bulletin.archive!
+          redirect_to params[:back_to] || admin_root_path, notice: t('.success')
+        else
+          redirect_to params[:back_to] || admin_root_path, flash: { error: t('.error') }
+        end
       end
 
       def reject
-        @bulletin.reject!
-        redirect_to admin_root_path, notice: t('.success')
+        if @bulletin.may_reject?
+          @bulletin.reject!
+          redirect_to admin_root_path, notice: t('.success')
+        else
+          redirect_to admin_root_path, flash: { error: t('.error') }
+        end
       end
 
       def publish
-        @bulletin.publish!
-        redirect_to admin_root_path, notice: t('.success')
+        if @bulletin.may_publish?
+          @bulletin.publish!
+          redirect_to admin_root_path, notice: t('.success')
+        else
+          redirect_to admin_root_path, flash: { error: t('.error') }
+        end
       end
 
       private

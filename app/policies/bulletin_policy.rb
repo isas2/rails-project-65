@@ -8,10 +8,6 @@ class BulletinPolicy
     @bulletin = bulletin
   end
 
-  def index?
-    true
-  end
-
   def show?
     bulletin.published? || bulletin.user == user || user&.admin?
   end

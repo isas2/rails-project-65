@@ -1,4 +1,4 @@
-= simple_form_for(@bulletin) do |f|
+= simple_form_for(bulletin) do |f|
   = f.error_notification
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
@@ -6,8 +6,8 @@
     = f.input :title, hint: false
     = f.input :description, hint: false
     = f.association :category, hint: false, collection: Category.order(name: :asc)
-    - if @bulletin.image_attachment
-      = image_tag @bulletin.image.variant(resize_to_limit: [200, 100]),
+    - if bulletin.image_attachment
+      = image_tag bulletin.image.variant(resize_to_limit: [200, 100]),
               class: 'img-thumbnail mb-2'
     = f.input :image, as: :file, hint: false
   .form-actions

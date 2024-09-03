@@ -2,11 +2,12 @@
 
 class Web::AuthControllerTest < ActionDispatch::IntegrationTest
   test 'check github auth' do
-    post auth_request_path('github')
+    sign_in users(:one)
     assert_response :redirect
+    assert signed_in?
   end
 
-  test 'create' do
+  test 'should create user' do
     auth_hash = {
       provider: 'github',
       uid: '12345',
@@ -15,15 +16,17 @@ class Web::AuthControllerTest < ActionDispatch::IntegrationTest
         name: Faker::Name.first_name
       }
     }
-
     OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash::InfoHash.new(auth_hash)
-
     get callback_auth_url('github')
+
     assert_response :redirect
-
-    user = User.find_by(email: auth_hash[:info][:email].downcase)
-
-    assert user
+    assert User.find_by(email: auth_hash[:info][:email].downcase)
     assert signed_in?
+  end
+
+  test 'check logout' do
+    sign_in users(:one)
+    delete logout_path
+    assert_not signed_in?
   end
 end

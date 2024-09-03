@@ -3,27 +3,37 @@
 module Web
   class BulletinsController < ApplicationController
     before_action :set_bulletin, only: %i[archive show edit to_moderate update]
+    before_action :authorize_bulletin, only: %i[archive show edit to_moderate update]
+
     def index
       @search = Bulletin.ransack(params[:q])
       @bulletins = @search.result.published.page(params[:page]).per(20)
-                          .includes(:user, :category).order(created_at: :desc)
+                          .order(created_at: :desc)
     end
 
     def profile
       authorize Bulletin
       @search = current_user.bulletins.ransack(params[:q])
       @bulletins = @search.result.page(params[:page]).per(20)
-                          .includes(:user, :category).order(created_at: :desc)
+                          .order(created_at: :desc)
     end
 
     def to_moderate
-      @bulletin.to_moderate!
-      redirect_to profile_path, notice: t('.success')
+      if @bulletin.may_to_moderate?
+        @bulletin.to_moderate!
+        redirect_to profile_path, notice: t('.success')
+      else
+        redirect_to profile_path, flash: { error: t('.error') }
+      end
     end
 
     def archive
-      @bulletin.archive!
-      redirect_to profile_path, notice: t('.success')
+      if @bulletin.may_archive?
+        @bulletin.archive!
+        redirect_to profile_path, notice: t('.success')
+      else
+        redirect_to profile_path, flash: { error: t('.error') }
+      end
     end
 
     def show; end
@@ -58,7 +68,6 @@ module Web
 
     def set_bulletin
       @bulletin = Bulletin.find(params[:id])
-      authorize @bulletin
     end
 
     def bulletin_params

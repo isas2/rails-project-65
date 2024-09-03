@@ -19,6 +19,11 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test 'should get profile' do
+    get profile_url
+    assert_response :success
+  end
+
   test 'should get new' do
     get new_bulletin_url
     assert_response :success
@@ -47,7 +52,8 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest
   test 'should update bulletin' do
     patch bulletin_url(@bulletin), params: { bulletin: @attrs }
 
-    assert_not_equal Bulletin.find_by(@attrs.except(:image)).category, @bulletin.category
+    updated = Bulletin.find_by(@attrs.except(:image))
+    assert_not_equal updated.category, @bulletin.category
   end
 
   test 'should to_moderete bulletin' do

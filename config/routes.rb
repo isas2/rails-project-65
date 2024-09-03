@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   scope module: :web do
     namespace :admin do
       root to: 'bulletins#index_moderated'
-      resources :categories
+      resources :categories, only: %i[create edit destroy index new show update]
       resources :bulletins, only: [:index] do
         member do
           patch :archive

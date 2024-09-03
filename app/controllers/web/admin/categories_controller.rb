@@ -37,7 +37,7 @@ module Web
       def destroy
         @category.destroy!
         redirect_to admin_categories_url, notice: t('.success')
-      rescue StandardError
+      rescue ActiveRecord::DeleteRestrictionError
         redirect_to admin_categories_url, flash: { error: t('.error') }
       end
 
