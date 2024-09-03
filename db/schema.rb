@@ -64,7 +64,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_02_050055) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "admin", default: false
-    t.string "github_uid", default: "0", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["name"], name: "index_users_on_name", unique: true
   end
