@@ -38,6 +38,11 @@ ru:
           new: Новая категория
         update:
           success: Категория успешно обновлена!
+    auth:
+      callback:
+        success: Вы успешно вошли в систему!
+      delete:
+        success: Вы успешно вышли из системы!
     bulletins:
       archive:
         success: Объявление успешно отправлено в архив!

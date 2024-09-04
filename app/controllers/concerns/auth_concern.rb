@@ -3,6 +3,11 @@
 module AuthConcern
   extend ActiveSupport::Concern
 
+  def self.included(base)
+    base.helper_method :current_user
+    base.helper_method :user_signed_in?
+  end
+
   def sign_in(user)
     session[:user_id] = user.id
   end

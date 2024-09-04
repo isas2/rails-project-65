@@ -4,22 +4,19 @@ module Web
   class AuthController < ApplicationController
     def callback
       auth = request.env['omniauth.auth']
-      # name = auth.info['name'] || auth.info['nickname']
-      # email = auth.info['email']
-      # github_uid = auth['uid']
-      #
-      # user = User.find_by(github_uid:)
-      # user ||= User.create(github_uid:, email:, name:)
-      # user.update(email:, name:) if user.email != email || user.name != name
-
-      user = User.find_or_create_by(email: auth.info['email'], name: auth.info['name'])
+      name = auth.info['name'] || auth.info['nickname']
+      # user = User.find_or_initialize_by(github_uid: auth['uid'])
+      # user.name = auth.info['name'] || auth.info['nickname']
+      # user.email = auth.info['email']
+      # user.save
+      user = User.find_or_create_by(email: auth.info['email'], name:)
       sign_in(user) if user.persisted?
-      redirect_to root_path
+      redirect_to root_path, notice: t('.success')
     end
 
     def delete
       sign_out
-      redirect_to root_path
+      redirect_to root_path, notice: t('.success')
     end
   end
 end

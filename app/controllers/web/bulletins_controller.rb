@@ -73,5 +73,9 @@ module Web
     def bulletin_params
       params.require(:bulletin).permit(:title, :description, :category_id, :image)
     end
+
+    def authorize_bulletin
+      authorize @bulletin
+    end
   end
 end

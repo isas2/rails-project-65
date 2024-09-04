@@ -38,6 +38,11 @@ en:
           new: New category
         update:
           success: Category was successfully updated!
+    auth:
+      callback:
+        success: You have signed in successfully!
+      delete:
+        success: You have logged out successfully!
     bulletins:
       archive:
         success: Bulletin was successfully sent to the archive!
